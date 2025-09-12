@@ -55,6 +55,7 @@ const NutritionSection = () => {
         start: "top 80%",
       },
     });
+
     titleTl.to(".nutrition-text-scroll", {
       duration: 1,
       opacity: 1,
@@ -67,13 +68,13 @@ const NutritionSection = () => {
     <section className="nutrition-section">
       <img
         src="/images/slider-dip.png"
-        alt="slider-dip background"
+        alt=""
         className="w-full object-cover"
       />
 
       <img
         src="/images/big-img.png"
-        alt="big image of vanilla milkshake"
+        alt="slider-dip background"
         className="big-img"
       />
 
@@ -99,7 +100,7 @@ const NutritionSection = () => {
         <div className="flex md:justify-center items-center translate-y-5">
           <div className="md:max-w-xs max-w-md">
             <p className="text-lg md:text-right text-balance font-paragraph">
-              Milk contains a wide array of nutrients, icluding vitamins,
+              Milk contains a wide array of nutrients, including vitamins,
               minerals, and protein, and this is lactose free
             </p>
           </div>
@@ -117,7 +118,7 @@ const NutritionSection = () => {
                   </p>
                 </div>
 
-                {index !== nutrientLists.length - 1 && (
+                {index !== lists.length - 1 && (
                   <div className="spacer-border" />
                 )}
               </div>

@@ -88,7 +88,7 @@ const FooterSection = () => {
           <p>Copyright © 2025 Spylt - All Rights Reserved</p>
           <div className="flex items-center gap-7">
             <p>Privacy Policy</p>
-            <p>Terms of Sеrvice</p>
+            <p>Terms of Service</p>
           </div>
         </div>
       </div>

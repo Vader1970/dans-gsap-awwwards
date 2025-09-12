@@ -68,7 +68,7 @@ const NutritionSection = () => {
     <section className="nutrition-section">
       <img
         src="/images/slider-dip.png"
-        alt=""
+        alt="slider-dip"
         className="w-full object-cover"
       />
 

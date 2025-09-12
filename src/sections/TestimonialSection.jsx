@@ -33,7 +33,7 @@ const TestimonialSection = () => {
       .to(
         ".testimonials-section .third-title",
         {
-          xPercent: -40,
+          xPercent: -50,
         },
         "<"
       );

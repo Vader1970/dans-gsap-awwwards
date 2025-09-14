@@ -16,6 +16,12 @@ const TestimonialSection = () => {
       gsap.set(".testimonials-section", {
         marginTop: "-140vh",
       });
+    } else {
+      // Mobile: Set initial state for cards to be hidden
+      gsap.set(".vd-card", {
+        yPercent: 150,
+        opacity: 0,
+      });
     }
 
     // Desktop: parallax effect with pinning
@@ -94,19 +100,20 @@ const TestimonialSection = () => {
           "<"
         );
 
-      // Simple card animations on mobile
-      gsap.from(".vd-card", {
-        yPercent: 50,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".testimonials-section",
-          start: "top 70%",
-          end: "bottom 30%",
-          scrub: 1,
-        },
+      // Mobile: individual card animations with sequential scroll triggers
+      cards.forEach((_, index) => {
+        gsap.to(`.vd-card:nth-child(${index + 1})`, {
+          yPercent: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power1.inOut",
+          scrollTrigger: {
+            trigger: ".testimonials-section",
+            start: `top ${80 - index * 10}%`, // Each card starts at different scroll positions
+            end: `top ${60 - index * 10}%`, // Each card ends at different scroll positions
+            scrub: 1,
+          },
+        });
       });
     }
   });
@@ -123,7 +130,7 @@ const TestimonialSection = () => {
 
   return (
     <section className="testimonials-section">
-      <div className="absolute size-full flex flex-col items-center pt-[5vw]">
+      <div className="absolute size-full flex flex-col items-center md:pt-[5vw] pt-[24vw]">
         <h1 className="text-black first-title">What's</h1>
         <h1 className="text-light-brown sec-title">Everyone</h1>
         <h1 className="text-black third-title">Talking</h1>

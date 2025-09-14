@@ -173,7 +173,7 @@ body::-webkit-scrollbar {
     }
 
     .nutrition-box {
-      @apply absolute md:bottom-16 bottom-5 w-full md:px-0 px-5;
+      @apply absolute md:bottom-16 bottom-5 w-full md:px-0 px-5 left-1/2 -translate-x-1/2;
 
       .list-wrapper {
         @apply bg-[#fdebd2] rounded-full border-[.5vw] border-[#e8ddca] mx-auto max-w-7xl md:py-8 py-5 md:px-0 px-5 flex justify-between items-center;
@@ -230,7 +230,7 @@ body::-webkit-scrollbar {
   }
 
   .testimonials-section {
-    @apply bg-milk relative w-full h-[120dvh];
+    @apply bg-milk relative w-full md:h-[120dvh] h-[150dvh];
 
     .pin-box {
       @apply flex items-center justify-center w-full ps-52 absolute 2xl:bottom-32 bottom-[50vh];
@@ -241,7 +241,7 @@ body::-webkit-scrollbar {
     }
 
     h1 {
-      @apply uppercase text-[15.5vw] leading-[105%] tracking-[-.4vw] ml-[2vw] font-bold;
+      @apply uppercase md:text-[15.5vw] text-[12vw] leading-[105%] tracking-[-.4vw] ml-[2vw] font-bold;
     }
   }
 

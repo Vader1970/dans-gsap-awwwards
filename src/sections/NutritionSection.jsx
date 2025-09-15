@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
+import { useFontsLoaded } from "../hooks/useFontsLoaded";
 
 const NutritionSection = () => {
   const isMobile = useMediaQuery({
@@ -11,6 +12,7 @@ const NutritionSection = () => {
   });
 
   const [lists, setLists] = useState(nutrientLists);
+  const fontsLoaded = useFontsLoaded();
 
   useEffect(() => {
     if (isMobile) {
@@ -21,6 +23,7 @@ const NutritionSection = () => {
   }, [isMobile]);
 
   useGSAP(() => {
+    if (!fontsLoaded) return;
     const titleSplit = SplitText.create(".nutrition-title", {
       type: "chars",
     });
@@ -28,6 +31,13 @@ const NutritionSection = () => {
       type: "words, lines",
       linesClass: "paragraph-line",
     });
+
+    // Remove aria-label attributes added by SplitText
+    document
+      .querySelectorAll(".nutrition-section [aria-label]")
+      .forEach((el) => {
+        el.removeAttribute("aria-label");
+      });
 
     const contentTl = gsap.timeline({
       scrollTrigger: {
@@ -62,7 +72,7 @@ const NutritionSection = () => {
       clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)",
       ease: "power1.inOut",
     });
-  });
+  }, [fontsLoaded, isMobile]);
 
   return (
     <section className="nutrition-section">

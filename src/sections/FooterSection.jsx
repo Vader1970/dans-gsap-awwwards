@@ -24,6 +24,7 @@ const FooterSection = () => {
           <img
             src="/images/footer-drink.png"
             className="absolute top-0 object-contain"
+            alt="Spylt drink"
           />
         ) : (
           <video

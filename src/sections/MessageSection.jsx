@@ -1,9 +1,13 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
+import { useFontsLoaded } from "../hooks/useFontsLoaded";
 
 const MessageSection = () => {
+  const fontsLoaded = useFontsLoaded();
+
   useGSAP(() => {
+    if (!fontsLoaded) return;
     const firstMsgSplit = SplitText.create(".first-message", {
       type: "words",
     });
@@ -13,6 +17,11 @@ const MessageSection = () => {
     const paragraphSplit = SplitText.create(".message-content p", {
       type: "words, lines",
       linesClass: "paragraph-line",
+    });
+
+    // Remove aria-label attributes added by SplitText
+    document.querySelectorAll(".message-content [aria-label]").forEach((el) => {
+      el.removeAttribute("aria-label");
     });
 
     gsap.to(firstMsgSplit.words, {
@@ -64,7 +73,7 @@ const MessageSection = () => {
       duration: 1,
       stagger: 0.01,
     });
-  });
+  }, [fontsLoaded]);
 
   return (
     <section className="message-content">

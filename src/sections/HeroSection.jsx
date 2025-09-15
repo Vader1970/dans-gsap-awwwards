@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useMediaQuery } from "react-responsive";
+import { useFontsLoaded } from "../hooks/useFontsLoaded";
 
 const HeroSection = () => {
   const isMobile = useMediaQuery({
@@ -12,7 +13,10 @@ const HeroSection = () => {
     query: "(max-width: 1024px)",
   });
 
+  const fontsLoaded = useFontsLoaded();
+
   useGSAP(() => {
+    if (!fontsLoaded) return;
     const titleSplit = SplitText.create(".hero-title", {
       type: "chars",
     });
@@ -59,7 +63,7 @@ const HeroSection = () => {
       yPercent: 30,
       ease: "power1.inOut",
     });
-  });
+  }, [fontsLoaded]);
 
   return (
     <section className="bg-main-bg">
@@ -70,11 +74,20 @@ const HeroSection = () => {
               <img
                 src="/images/hero-bg.png"
                 className="absolute bottom-40 size-full object-cover"
+                alt="Background image of Spylt drinks"
               />
             )}
             <img
               src="/images/hero-img.png"
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 object-auto"
+              srcSet="/images/hero-img.png 1x, /images/hero-img.png 2x"
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 object-contain object-bottom"
+              alt="Spylt drinks"
+              style={{
+                maxHeight: "80vh",
+                width: "auto",
+                height: "auto",
+                maxWidth: "100vw",
+              }}
             />
           </>
         ) : (

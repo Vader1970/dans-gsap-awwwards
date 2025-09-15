@@ -1,9 +1,13 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
+import { useFontsLoaded } from "../hooks/useFontsLoaded";
 
 const FlavorTitle = () => {
+  const fontsLoaded = useFontsLoaded();
+
   useGSAP(() => {
+    if (!fontsLoaded) return;
     const firstTextSplit = SplitText.create(".first-text-split h1", {
       type: "chars",
     });
@@ -39,7 +43,7 @@ const FlavorTitle = () => {
         start: "top 1%",
       },
     });
-  });
+  }, [fontsLoaded]);
 
   return (
     <div className="general-title col-center h-full 2xl:gap-32 xl:gap-24 gap-16">

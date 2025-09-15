@@ -105,7 +105,7 @@ const TestimonialSection = () => {
         gsap.to(`.vd-card:nth-child(${index + 1})`, {
           yPercent: 0,
           opacity: 1,
-          duration: 1,
+          duration: 0.5,
           ease: "power1.inOut",
           scrollTrigger: {
             trigger: ".testimonials-section",
@@ -130,7 +130,7 @@ const TestimonialSection = () => {
 
   return (
     <section className="testimonials-section">
-      <div className="absolute size-full flex flex-col items-center pt-[5vw]">
+      <div className="absolute size-full flex flex-col items-center pt-[40vw] md:pt-[5vw]">
         <h1 className="text-black first-title">What's</h1>
         <h1 className="text-light-brown sec-title">Everyone</h1>
         <h1 className="text-black third-title">Talking</h1>

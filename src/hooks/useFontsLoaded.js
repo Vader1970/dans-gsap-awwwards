@@ -22,12 +22,24 @@ export const useFontsLoaded = () => {
 
   // Effect runs once on component mount to check font loading status
   useEffect(() => {
+    let timeoutId;
+
     // Modern browsers: Use Font Loading API for reliable font detection
     if (document.fonts && document.fonts.ready) {
       // document.fonts.ready is a Promise that resolves when all fonts are loaded
-      document.fonts.ready.then(() => {
+      document.fonts.ready
+        .then(() => {
+          setFontsLoaded(true);
+        })
+        .catch(() => {
+          // Fallback if fonts.ready fails
+          setTimeout(() => setFontsLoaded(true), 1000);
+        });
+
+      // Safety timeout to prevent infinite waiting (3 seconds max)
+      timeoutId = setTimeout(() => {
         setFontsLoaded(true);
-      });
+      }, 3000);
     } else {
       // Fallback for older browsers that don't support Font Loading API
       const checkFonts = () => {
@@ -55,7 +67,19 @@ export const useFontsLoaded = () => {
 
       // Start the font checking process
       checkFonts();
+
+      // Safety timeout to prevent infinite waiting (3 seconds max)
+      timeoutId = setTimeout(() => {
+        setFontsLoaded(true);
+      }, 3000);
     }
+
+    // Cleanup timeout on unmount
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []); // Empty dependency array - only run once on mount
 
   // Return the current font loading status

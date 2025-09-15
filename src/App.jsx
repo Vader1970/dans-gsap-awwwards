@@ -12,23 +12,43 @@ import FooterSection from "./sections/FooterSection";
 import gsap from "gsap";
 import { ScrollSmoother, ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
+import { useFontsLoaded } from "./hooks/useFontsLoaded";
 
 // Register GSAP plugins for smooth scrolling and scroll-triggered animations
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const App = () => {
-  // Initialize ScrollSmoother for enhanced scroll experience
+  // Custom hook to check if fonts are loaded before initializing ScrollSmoother
+  const fontsLoaded = useFontsLoaded();
+
+  // Initialize ScrollSmoother only after fonts are loaded to prevent layout shifts
   useGSAP(() => {
-    ScrollSmoother.create({
-      smooth: 3, // Smoothness factor (higher = smoother)
-      effects: true, // Enable parallax and other scroll effects
-    });
-  });
+    // Exit early if fonts aren't loaded yet to prevent incorrect positioning
+    if (!fontsLoaded) return;
+
+    // Small delay to ensure DOM is fully ready after font loading
+    const initScrollSmoother = () => {
+      ScrollSmoother.create({
+        smooth: 3, // Smoothness factor (higher = smoother)
+        effects: true, // Enable parallax and other scroll effects
+      });
+    };
+
+    // Use requestAnimationFrame to ensure DOM is fully rendered
+    requestAnimationFrame(initScrollSmoother);
+  }, [fontsLoaded]); // Re-run when fontsLoaded changes
 
   return (
     <main>
       {/* Navigation bar - positioned outside smooth wrapper for fixed positioning */}
       <NavBar />
+
+      {/* Loading state - shown while fonts are loading to prevent layout shifts */}
+      {!fontsLoaded && (
+        <div className="fixed inset-0 bg-milk flex-center z-50">
+          <div className="text-dark-brown text-xl font-bold">Loading...</div>
+        </div>
+      )}
 
       {/* ScrollSmoother wrapper - required for smooth scrolling functionality */}
       <div id="smooth-wrapper">

@@ -109,8 +109,8 @@ const TestimonialSection = () => {
           ease: "power1.inOut",
           scrollTrigger: {
             trigger: ".testimonials-section",
-            start: `top ${80 - index * 20}%`, // Each card starts when fully visible
-            end: `top ${60 - index * 20}%`, // Each card ends at different scroll positions
+            start: `top ${80 - index * 10}%`, // Each card starts when fully visible
+            end: `top ${60 - index * 10}%`, // Each card ends at different scroll positions
             scrub: 1,
           },
         });
@@ -130,7 +130,7 @@ const TestimonialSection = () => {
 
   return (
     <section className="testimonials-section">
-      <div className="absolute size-full flex flex-col items-center md:pt-[5vw] pt-[40vw]">
+      <div className="absolute size-full flex flex-col items-center pt-[5vw]">
         <h1 className="text-black first-title">What's</h1>
         <h1 className="text-light-brown sec-title">Everyone</h1>
         <h1 className="text-black third-title">Talking</h1>

@@ -1,36 +1,51 @@
+// Component imports - organized by type for better readability
 import NavBar from "./components/NavBar";
 import HeroSection from "./sections/HeroSection";
 import MessageSection from "./sections/MessageSection";
 import FlavorSection from "./sections/FlavorSection";
 import NutritionSection from "./sections/NutritionSection";
 import BenefitSection from "./sections/BenefitSection";
-import gsap from "gsap";
-import { ScrollSmoother, ScrollTrigger } from "gsap/all";
-import { useGSAP } from "@gsap/react";
 import TestimonialSection from "./sections/TestimonialSection";
 import FooterSection from "./sections/FooterSection";
 
+// GSAP imports - grouped together for better organization
+import gsap from "gsap";
+import { ScrollSmoother, ScrollTrigger } from "gsap/all";
+import { useGSAP } from "@gsap/react";
+
+// Register GSAP plugins for smooth scrolling and scroll-triggered animations
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const App = () => {
+  // Initialize ScrollSmoother for enhanced scroll experience
   useGSAP(() => {
     ScrollSmoother.create({
-      smooth: 3,
-      effects: true,
+      smooth: 3, // Smoothness factor (higher = smoother)
+      effects: true, // Enable parallax and other scroll effects
     });
   });
 
   return (
     <main>
+      {/* Navigation bar - positioned outside smooth wrapper for fixed positioning */}
       <NavBar />
+
+      {/* ScrollSmoother wrapper - required for smooth scrolling functionality */}
       <div id="smooth-wrapper">
         <div id="smooth-content">
+          {/* Individual sections - each handles its own animations and content */}
           <HeroSection />
           <MessageSection />
           <FlavorSection />
           <NutritionSection />
-          <BenefitSection />
-          <TestimonialSection />
+
+          {/* Grouped sections - wrapped together for coordinated animations */}
+          <div>
+            <BenefitSection />
+            <TestimonialSection />
+          </div>
+
+          {/* Footer section - separate as it typically has different scroll behavior */}
           <FooterSection />
         </div>
       </div>
